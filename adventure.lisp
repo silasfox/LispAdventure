@@ -2,7 +2,7 @@
 
 (setq *print-case* :capitalize)
 
-;;; Defining objects
+;;; Defining objects as variables
 
 (defvar *1* "Pfanne")
 (defvar *2* "Küchenmesser")
@@ -147,17 +147,29 @@
 
 (defvar *invent* (list "Taschenbibel"))
 
+;;; Your position
+
 (defvar *stand* *a*)
+
+;;; This function prints your position and appends a "Was willst du tun?", i.e. "What do you want to do?"
 
 (defun ort (*stand*)
   (format t "~a~%Was willst du tun?~%" *stand*))
 
 (ort *stand*)
 
+;;; A variable that takes the player's input
+
 (defvar *x* (read))
 
-(loop (cond ((eq *stand* *a*)
+;;; The actual game engine. The loop loops everything.
+
+(loop 
+;;; This cond figures out what room you're in.
+  (cond ((eq *stand* *a*)
+;;; This cond takes your input and acts accordingly.
 	 (cond ((eq *x* 'Norden)
+;;; This function locks you out by setting your position to a string instead of a variable. You can input what you want, but you have left spacetime, as much as this game is concerned.
 		(setf *stand* "Du bist ausgeschlossen. Toll hast du das gemacht.")
 		(ort *stand*))
 	       ((eq *x* 'Sueden)
@@ -166,10 +178,15 @@
 	       ((eq *x* 'Westen)
 		(format t "Das Bad. Musst du mal? Sonst raus hier.~%")
 		(setf *x* (read)))
+;;; eq figures out what your input is.
 	       ((eq *x* 'Osten)
+;;; setf sets your position (*stand*) to the room you're going into.
 		(setf *stand* *b*)
+;;; ort prints out the room and asks for more input.
 		(ort *stand*)
+;;; setf actually reads the input.
 		(setf *x* (read)))
+;;; the loop restarts.
 	       ((eq *x* 'hoch)
 		(setf *stand* *f*)
 		(ort *stand*)
@@ -179,6 +196,7 @@
 		(ort *stand*)
 		(setf *x* (read)))
 	       ((eq *x* 'I)
+;;; format prints the list *invent* to the terminal.
 		(format t "~a~%" *invent*)
 		(setf *x* (read)))
 	       (t (format t "Dafür hast du nicht die notwendige Berechtigung.~%")
