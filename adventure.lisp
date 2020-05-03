@@ -61,9 +61,10 @@
 | Du stehst im oberen Treppenhaus. 				 |
 |----------------------------------------------------------------|
 | Nach Norden schaut ein Fenster auf die Kreuzung vor dem Haus,  |
-| nach Osten geht es in Ottis und Naomis Arbeitszimmer. Im  	 |
-| Westen ist ein weiteres Badezimmer, im Süden schläft Prisca.   |
-| Nach oben geht es zu Joel, nach unten kommst du in den Flur.   |
+| nach Osten geht es ins Arbeitszimmer der Eltern. Im Westen  	 |
+| ist ein weiteres Badezimmer, im Süden wohnt deine Schwester.	 |
+| Nach oben geht es zum kleinen Bruder, nach unten kommst du in  |
+| den Flur.							 |
 ------------------------------------------------------------------")
 
 (defvar *g* 
@@ -77,7 +78,7 @@
 
 (defvar *i* 
 "------------------------------------------------------------------
-| Prissys Schlafzimmer. Komplettes Chaos.			 |
+| Das Schlafzimmer deiner Schwester. Komplettes Chaos.		 |
 |----------------------------------------------------------------|
 | Richtung Norden kommst du hier wieder raus.			 |
 ------------------------------------------------------------------")
@@ -139,8 +140,8 @@
 
 (defvar *q* 
 "------------------------------------------------------------------
-| Joels Zimmer. Ich würde schnell wieder rausgehen, wenn ich du  |
-| wäre. Es sei denn, du hast Gummibärchen.			 |
+| Das Zimmer deines Bruders. Ich würde schnell wieder rausgehen, |
+| wenn ich du wäre. Es sei denn, du hast Gummibärchen.		 |
 |----------------------------------------------------------------|
 | Runter ist raus.						 |
 ------------------------------------------------------------------")
