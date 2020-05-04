@@ -4,14 +4,59 @@
 
 (setq *print-case* :capitalize)
 
+;;; An introductory message to the player
+
+(defvar *intro*
+"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++ Eine kurze Einführung						+
++ Es gibt folgende Befehle:					+
++ Norden (geht einen Raum nach Norden)				+
++ Sueden (geht einen Raum nach Süden)				+
++ Osten (du verstehst...)					+
++ Westen							+
++ Hoch								+
++ Runter							+
++ I (öffnet dein Inventar)					+
++ Schau (zeigt den Raum noch einmal)				+
++ Schluss (verlässt das Spiel)					+
++ Hilfe (druckt diesen Text noch einmal ab)			+
++---------------------------------------------------------------+
++ Groß- und Kleinschreibung ist egal, Umlaute müssen immer mit	+
++ zwei Buchstaben geschrieben werden, d.h. ä ist ae etc.	+
++---------------------------------------------------------------+
++ Viel Spaß!							+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
 ;;; Defining objects as variables
 
+(defvar *0* "Nichts")
 (defvar *1* "Pfanne")
 (defvar *2* "Küchenmesser")
 (defvar *3* "Wasserflasche")
 (defvar *4* "Verschimmeltes Butterbrot")
+(defvar *5* "Schere")
+(defvar *6* "Weinglas")
+(defvar *7* "Gitarre")
+(defvar *8* "X-Box Controller")
 
-;;; Describing the rooms of the game
+;;; Making a list per room containing this rooms objects
+
+(defvar *aobjects* (list *0*))
+(defvar *bobjects* (list *1* *2* *3* *4*))
+(defvar *cobjects* (list *5* *6*))
+(defvar *dobjects* (list *7* *8*))
+(defvar *fobjects* (list *0*))
+(defvar *gobjects* (list *0*))
+(defvar *iobjects* (list *0*))
+(defvar *kobjects* (list *0*))
+(defvar *lobjects* (list *0*))
+(defvar *mobjects* (list *0*))
+(defvar *nobjects* (list *0*))
+(defvar *oobjects* (list *0*))
+(defvar *pobjects* (list *0*))
+(defvar *qobjects* (list *0*))
+
+;;; Describing the rooms of the game and the objects in them
 
 (defvar *averb* 
 "------------------------------------------------------------------
@@ -33,7 +78,6 @@
 |----------------------------------------------------------------|
 | Nach Süden geht es ins Esszimmer, nach Westen in den Flur.     |
 ------------------------------------------------------------------")
-(defvar *bobjects* (list *1* *2* *3* *4*))
 
 (defvar *cverb* 
 "------------------------------------------------------------------
@@ -175,63 +219,75 @@
 (defvar *stand* *a*)
 
 #||
-;;; Defining movement as mathematical functions
-
-(defun westen (*stand*) (setq *stand* (+ *stand* 133)))
-(defun osten (*stand*) (defvar *stand* (- *stand* 133)))
-(defun norden (*stand*) (setf *stand* (+ *stand* 1001)))
-(defun sueden (*stand*) (setf *stand* (- *stand* 1001)))
-(defun hoch (*stand*) (setf *stand* (+ *stand* 2)))
-(defun runter (*stand*) (setf *stand* (- *stand* 2)))
+This function compares your position to the numbered rooms,  prints the corresponding verbose description of the room, 
+and appends a list of the objects in the room and a "Was willst du tun?", i.e. "What do you want to do?"
 ||#
-
-;;; This function prints your position and appends a "Was willst du tun?", i.e. "What do you want to do?"
 
 (defun ort (*stand*)
   (cond 
     ((eq *stand* *a*)
-     (format t "~a~%" *averb*))
+     (format t "~a~%" *averb*)
+     (format t "Du siehst: ~a~%" *aobjects*))
     ((eq *stand* *b*)
      (format t "~a~%" *bverb*)
      (format t "Du siehst: ~a~%" *bobjects*))
     ((eq *stand* *c*)
-     (format t "~a~%" *cverb*))
+     (format t "~a~%" *cverb*)
+     (format t "Du siehst: ~a~%" *cobjects*))
     ((eq *stand* *d*)
-     (format t "~a~%" *dverb*))
+     (format t "~a~%" *dverb*)
+     (format t "Du siehst: ~a~%" *dobjects*))
     ((eq *stand* *e*)
      (format t 
 "------------------------------------------------------------------
 | Das Bad. Musst du mal? Nein? Dann raus hier.			 |
 ------------------------------------------------------------------~%"))
     ((eq *stand* *f*)
-     (format t "~a~%" *fverb*))
+     (format t "~a~%" *fverb*)
+     (format t "Du siehst: ~a~%" *fobjects*))
     ((eq *stand* *g*)
-     (format t "~a~%" *gverb*))
+     (format t "~a~%" *gverb*)
+     (format t "Du siehst: ~a~%" *gobjects*))
     ((eq *stand* *h*)
-     (format t "~a~%" *hverb*))
+     (format t 
+"------------------------------------------------------------------
+| Das Schlafzimmer deiner Eltern. Hier hast du keinen Zutritt.	 |
+------------------------------------------------------------------~%"))
     ((eq *stand* *i*)
-     (format t "~a~%" *iverb*))
+     (format t "~a~%" *iverb*)
+     (format t "Du siehst: ~a~%" *iobjects*))
     ((eq *stand* *j*)
      (format t 
 "------------------------------------------------------------------
-| Du bist ganz gut im bäderfinden. Aber auch hier hast du nichts |
+| Du bist ganz gut im Bäderfinden. Aber auch hier hast du nichts |
 | zu suchen.							 |
 ------------------------------------------------------------------~%"))
     ((eq *stand* *k*)
-     (format t "~a~%" *kverb*))
+     (format t "~a~%" *kverb*)
+     (format t "Du siehst: ~a~%" *kobjects*))
     ((eq *stand* *l*)
-     (format t "~a~%" *lverb*))
+     (format t "~a~%" *lverb*)
+     (format t "Du siehst: ~a~%" *lobjects*))
     ((eq *stand* *m*)
-     (format t "~a~%" *mverb*))
+     (format t "~a~%" *mverb*)
+     (format t "Du siehst: ~a~%" *mobjects*))
     ((eq *stand* *n*)
-     (format t "~a~%" *nverb*))
+     (format t "~a~%" *nverb*)
+     (format t "Du siehst: ~a~%" *nobjects*))
     ((eq *stand* *o*)
-     (format t "~a~%" *overb*))
+     (format t "~a~%" *overb*)
+     (format t "Du siehst: ~a~%" *oobjects*))
     ((eq *stand* *p*)
-     (format t "~a~%" *pverb*))
+     (format t "~a~%" *pverb*)
+     (format t "Du siehst: ~a~%" *pobjects*))
     ((eq *stand* *q*)
-     (format t "~a~%" *qverb*)))
+     (format t "~a~%" *qverb*)
+     (format t "Du siehst: ~a~%" *qobjects*)))
   (format t "Was willst du tun?~%" *stand*))
+
+;;; The game begins
+
+(format t "~a~%~%~%" *intro*)
 
 (ort *stand*)
 
@@ -264,5 +320,7 @@
     ((eq *x* 'i)
      (format t "~a~%Was willst du tun?~%" *invent*))
     ((eq *x* 'schluss)
-     (quit)))
+     (quit))
+    ((eq *x* 'hilfe)
+     (format t "~a~%~%~%" *intro*)))
   (setf *x* (read)))
