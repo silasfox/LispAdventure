@@ -11,9 +11,9 @@
 (defvar *3* "Wasserflasche")
 (defvar *4* "Verschimmeltes Butterbrot")
 
-;;; Defining the rooms of the game: every room is a variable
+;;; Describing the rooms of the game
 
-(defvar *a* 
+(defvar *averb* 
 "------------------------------------------------------------------
 | Du stehst im Treppenhaus des Hauses.                           | 
 |----------------------------------------------------------------|
@@ -22,7 +22,7 @@
 | Etagen. Im Norden ist die Haustür.                             |
 ------------------------------------------------------------------")
 
-(defvar *b* 
+(defvar *bverb* 
 "------------------------------------------------------------------
 | Du stehst in der Küche. An der einen Wand ist die Küchenzeile  |
 | mit Herd, Spüle und einigen Schränken. In der Mitte des Raumes |
@@ -35,7 +35,7 @@
 ------------------------------------------------------------------")
 (defvar *bobjects* (list *1* *2* *3* *4*))
 
-(defvar *c* 
+(defvar *cverb* 
 "------------------------------------------------------------------
 | Du stehst im Esszimmer. In der Mitte des Raumes steht ein	 |
 | großer Tisch mit einer Eckbank, in den drei anderen Ecken ste- |
@@ -45,7 +45,7 @@
 | Nach Westen geht es ins Wohnzimmer, nach Norden in die Küche.  |
 ------------------------------------------------------------------")
 
-(defvar *d* 
+(defvar *dverb* 
 "------------------------------------------------------------------
 | Das ist das Wohnzimmer. Die eine Wand nimmt ein Schrank ein,   |
 | in dem unter anderem ein Flachbildfernseher und eine X-Box 	 |
@@ -56,7 +56,7 @@
 | Nach Osten geht es ins Esszimmer.				 |
 ------------------------------------------------------------------")
 
-(defvar *f* 
+(defvar *fverb* 
 "------------------------------------------------------------------
 | Du stehst im oberen Treppenhaus. 				 |
 |----------------------------------------------------------------|
@@ -67,7 +67,7 @@
 | den Flur.							 |
 ------------------------------------------------------------------")
 
-(defvar *g* 
+(defvar *gverb* 
 "------------------------------------------------------------------
 | Das hier ist das Arbeitszimmer der Eltern.			 |
 |----------------------------------------------------------------|
@@ -76,14 +76,14 @@
 | wieder in den Flur.						 |
 ------------------------------------------------------------------")
 
-(defvar *i* 
+(defvar *iverb* 
 "------------------------------------------------------------------
 | Das Schlafzimmer deiner Schwester. Komplettes Chaos.		 |
 |----------------------------------------------------------------|
 | Richtung Norden kommst du hier wieder raus.			 |
 ------------------------------------------------------------------")
 
-(defvar *k*
+(defvar *kverb*
 "------------------------------------------------------------------
 | Der Flur im Keller. Von hier hast du auch einen guten Blick 	 |
 | unter die Treppe. Es ist dreckig. Da steht eine Kiste mit al-	 |
@@ -93,7 +93,7 @@
 | Richtung Süden geht es weiter den Flur entlang.		 |
 ------------------------------------------------------------------")
 
-(defvar *l* 
+(defvar *lverb* 
 "------------------------------------------------------------------
 | Der erste Kellerraum. Die Wände sind mit Regalen und Zeug ge-	 |
 | säumt. Viel Zeug. Vermutlich findest du hier fast alles, was 	 |
@@ -102,7 +102,7 @@
 | Nach Westen kommst du wieder raus.				 |
 ------------------------------------------------------------------")
 
-(defvar *m* 
+(defvar *mverb* 
 "------------------------------------------------------------------
 | Die Waschküche. Eine Waschmaschine, ein Trockner, ein Wasch-	 |
 | becken und eine Toilette. Sonst viele Waschmittel. Vielleicht  |
@@ -111,7 +111,7 @@
 | Nach Osten geht's wieder in den Flur.				 |
 ------------------------------------------------------------------")
 
-(defvar *n* 
+(defvar *nverb* 
 "------------------------------------------------------------------
 | Der zweite Kellerraum. Die Wände sind leer, nicht einmal ge-	 |
 | strichen. Hier steht ziemlich viel Gerümpel. Was du in dem 	 |
@@ -120,7 +120,7 @@
 | Nach Westen geht's wieder raus.				 |
 ------------------------------------------------------------------")
 
-(defvar *o* 
+(defvar *overb* 
 "------------------------------------------------------------------
 | Die Eintrittsschleuse des Kellers. Ein relativ großer Raum, an |
 | der südlichen Wand steht ein großer Schrank.			 |
@@ -129,7 +129,7 @@
 | ten Kellerraum. Im Westen ist eine Tür auf den Hof.		 |
 ------------------------------------------------------------------")
 
-(defvar *p*
+(defvar *pverb*
 "------------------------------------------------------------------
 | Du befindest dich auf dem Hof. Wilde ZAMis starren dich böse   |
 | an. Du wünschst dir, nie das Haus verlassen zu haben. Schnell  |
@@ -138,13 +138,33 @@
 | Im Osten erwartet dich die Sicherheit deiner vier Wände.	 |
 ------------------------------------------------------------------")
 
-(defvar *q* 
+(defvar *qverb* 
 "------------------------------------------------------------------
 | Das Zimmer deines Bruders. Ich würde schnell wieder rausgehen, |
 | wenn ich du wäre. Es sei denn, du hast Gummibärchen.		 |
 |----------------------------------------------------------------|
 | Runter ist raus.						 |
 ------------------------------------------------------------------")
+
+;;;Defining rooms as numbers
+
+(defvar *a* 0)
+(defvar *b* -133)
+(defvar *c* -1134)
+(defvar *d* -1001)
+(defvar *e* 133)
+(defvar *f* 2)
+(defvar *g* -131)
+(defvar *h* -1132)
+(defvar *i* -999)
+(defvar *j* 135)
+(defvar *k* -2)
+(defvar *l* -135)
+(defvar *m* 131)
+(defvar *n* -1136)
+(defvar *o* -1003)
+(defvar *p* -870)
+(defvar *q* 4)
 
 ;;; Inventory
 
@@ -154,332 +174,95 @@
 
 (defvar *stand* *a*)
 
+#||
+;;; Defining movement as mathematical functions
+
+(defun westen (*stand*) (setq *stand* (+ *stand* 133)))
+(defun osten (*stand*) (defvar *stand* (- *stand* 133)))
+(defun norden (*stand*) (setf *stand* (+ *stand* 1001)))
+(defun sueden (*stand*) (setf *stand* (- *stand* 1001)))
+(defun hoch (*stand*) (setf *stand* (+ *stand* 2)))
+(defun runter (*stand*) (setf *stand* (- *stand* 2)))
+||#
+
 ;;; This function prints your position and appends a "Was willst du tun?", i.e. "What do you want to do?"
 
 (defun ort (*stand*)
-  (format t "~a~%Was willst du tun?~%" *stand*))
+  (cond 
+    ((eq *stand* *a*)
+     (format t "~a~%" *averb*))
+    ((eq *stand* *b*)
+     (format t "~a~%" *bverb*)
+     (format t "Du siehst: ~a~%" *bobjects*))
+    ((eq *stand* *c*)
+     (format t "~a~%" *cverb*))
+    ((eq *stand* *d*)
+     (format t "~a~%" *dverb*))
+    ((eq *stand* *e*)
+     (format t 
+"------------------------------------------------------------------
+| Das Bad. Musst du mal? Nein? Dann raus hier.			 |
+------------------------------------------------------------------~%"))
+    ((eq *stand* *f*)
+     (format t "~a~%" *fverb*))
+    ((eq *stand* *g*)
+     (format t "~a~%" *gverb*))
+    ((eq *stand* *h*)
+     (format t "~a~%" *hverb*))
+    ((eq *stand* *i*)
+     (format t "~a~%" *iverb*))
+    ((eq *stand* *j*)
+     (format t 
+"------------------------------------------------------------------
+| Du bist ganz gut im bäderfinden. Aber auch hier hast du nichts |
+| zu suchen.							 |
+------------------------------------------------------------------~%"))
+    ((eq *stand* *k*)
+     (format t "~a~%" *kverb*))
+    ((eq *stand* *l*)
+     (format t "~a~%" *lverb*))
+    ((eq *stand* *m*)
+     (format t "~a~%" *mverb*))
+    ((eq *stand* *n*)
+     (format t "~a~%" *nverb*))
+    ((eq *stand* *o*)
+     (format t "~a~%" *overb*))
+    ((eq *stand* *p*)
+     (format t "~a~%" *pverb*))
+    ((eq *stand* *q*)
+     (format t "~a~%" *qverb*)))
+  (format t "Was willst du tun?~%" *stand*))
 
 (ort *stand*)
 
 ;;; A variable that takes the player's input
 
-(defvar *x* (read))
+(setq *x* (read))
 
-;;; The actual game engine. The loop loops everything.
-
-(loop 
-;;; This cond figures out what room you're in.
-  (cond ((eq *stand* *a*)
-	 ;; This cond takes your input and acts accordingly.
-	 (cond ((eq *x* 'Norden)
-		;; This function locks you out by setting your position to a string instead of a variable. You can input what you want, but you have left spacetime, as much as this game is concerned.
-		(setf *stand* "Du bist ausgeschlossen. Toll hast du das gemacht.")
-		(ort *stand*))
-	       ((eq *x* 'Sueden)
-		(format t "Da ist 'ne Wand, du Hornochse!~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Westen)
-		(format t "Das Bad. Musst du mal? Sonst raus hier.~%")
-		(setf *x* (read)))
-	       ;; eq figures out what your input is.
-	       ((eq *x* 'Osten)
-		;; setf sets your position (*stand*) to the room you're going into.
-		(setf *stand* *b*)
-		;; ort prints out the room and asks for more input.
-		(ort *stand*)
-		;; setf actually reads the input.
-		(setf *x* (read)))
-	       ;; the loop restarts.
-	       ((eq *x* 'hoch)
-		(setf *stand* *f*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'runter)
-		(setf *stand* *k*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'I)
-		;; format prints the list *invent* to the terminal.
-		(format t "~a~%" *invent*)
-		(setf *x* (read)))
-	       ((eq *x* 'Ende)
-		(quit))
-	       (t (format t "Dafür hast du nicht die notwendige Berechtigung.~%")
-		  (setf *x* (read)))))
-	((eq *stand* *b*)
-	 (cond ((eq *x* 'Norden)
-		(format t "Toll, jetzt hast du dir die Hand an der Herdplatte verbrannt! Mach das nicht nochmal!~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Sueden)
-		(setf *stand* *c*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'Westen)
-		(setf *stand* *a*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'Osten)
-		(format t "Nein, du kannst nicht aus dem Fenster springen!~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Schau)
-		(format t "Du siehst: ~a~%"*bobjects*)
-		(setf *x* (read)))
-	       ((eq *x* 'I)
-		(format t "~a~%" *invent*)
-		(setf *x* (read)))
-	       ((eq *x* 'Ende)
-		(quit))
-	       (t (format t "Dafür hast du nicht die notwendige Berechtigung.~%")
-		  (setf *x* (read)))))
-	((eq *stand* *c*)
-	 (cond ((eq *x* 'Norden)
-		(setf *stand* *b*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'Sueden)
-		(format t "Da ist 'ne Wand, du Hornochse!~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Osten)
-		(format t "Nein, du kannst nicht aus dem Fenster springen!~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Westen)
-		(setf *stand* *d*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'I)
-		(format t "~a~%" *invent*)
-		(setf *x* (read)))
-	       ((eq *x* 'Ende)
-		(quit))
-	       (t (format t "Dafür hast du nicht die notwendige Berechtigung.~%")
-		  (setf *x* (read)))))
-	((eq *stand* *d*)
-	 (cond ((eq *x* 'Norden)
-		(format t "Da ist 'ne Wand, du Hornochse!~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Sueden)
-		(format t "Da ist 'ne Wand, du Hornochse!~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Osten)
-		(setf *stand* *c*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'Westen)
-		(format t "Nein, du kannst nicht aus dem Fenster springen!~%")
-		(setf *x* (read)))
-	       ((eq *x* 'I)
-		(format t "~a~%" *invent*)
-		(setf *x* (read)))
-	       ((eq *x* 'Ende)
-		(quit))
-	       (t (format t "Dafür hast du nicht die notwendige Berechtigung.~%")
-		  (setf *x* (read)))))
-	((eq *stand* *f*)
-	 (cond ((eq *x* 'Norden)
-		(format t "Nein, du kannst nicht aus dem Fenster springen!~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Sueden)
-		(setf *stand* *i*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'Westen)
-		(format t "Das Bad. Musst du mal? Sonst raus hier.~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Osten)
-		(setf *stand* *g*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'hoch)
-		(setf *stand* *q*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'runter)
-		(setf *stand* *a*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'I)
-		(format t "~a~%" *invent*)
-		(setf *x* (read)))
-	       ((eq *x* 'Ende)
-		(quit))
-	       (t (format t "Dafür hast du nicht die notwendige Berechtigung.~%")
-		  (setf *x* (read)))))
-	((eq *stand* *g*)
-	 (cond ((eq *x* 'Norden)
-		(format t "Hör endlich auf, aus allen Fenstern springen zu wollen!~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Sueden)
-		(format t "Hier hast du nichts zu suchen. Raus hier!~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Westen)
-		(setf *stand* *f*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'Osten)
-		(format t "Hab ich gesagt, daß du da durchgehen kannst? Nein.~%")
-		(setf *x* (read)))
-	       ((eq *x* 'I)
-		(format t "~a~%" *invent*)
-		(setf *x* (read)))
-	       ((eq *x* 'Ende)
-		(quit))
-	       (t (format t "Dafür hast du nicht die notwendige Berechtigung.~%")
-		  (setf *x* (read)))))
-	((eq *stand* *i*)
-	 (cond ((eq *x* 'Norden)
-		(setf *stand* *f*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'Sueden)
-		(format t "Hier ist kein Durchkommen. Gib auf.~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Westen)
-		(format t "Hier ist kein Durchkommen. Gib auf.~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Osten)
-		(format t "Hier ist kein Durchkommen. Gib auf.~%")
-		(setf *x* (read)))
-	       ((eq *x* 'I)
-		(format t "~a~%" *invent*)
-		(setf *x* (read)))
-	       ((eq *x* 'Ende)
-		(quit))
-	       (t (format t "Dafür hast du nicht die notwendige Berechtigung.~%")
-		  (setf *x* (read)))))
-	((eq *stand* *k*)
-	 (cond ((eq *x* 'Norden)
-		(format t "Da ist 'ne Wand. Geh woanders lang.~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Sueden)
-		(setf *stand* *o*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'Westen)
-		(setf *stand* *m*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'Osten)
-		(setf *stand* *l*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'Hoch)
-		(setf *stand* *a*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'I)
-		(format t "~a~%" *invent*)
-		(setf *x* (read)))
-	       ((eq *x* 'Ende)
-		(quit))
-	       (t (format t "Dafür hast du nicht die notwendige Berechtigung.~%")
-		  (setf *x* (read)))))
-	((eq *stand* *l*)
-	 (cond ((eq *x* 'Norden)
-		(format t "Da ist 'ne Wand. Geh woanders lang.~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Sueden)
-		(format t "Da ist 'ne Wand. Geh woanders lang.~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Westen)
-		(setf *stand* *k*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'Osten)
-		(format t "Da ist 'ne Wand. Geh woanders lang.~%")
-		(setf *x* (read)))
-	       ((eq *x* 'I)
-		(format t "~a~%" *invent*)
-		(setf *x* (read)))
-	       ((eq *x* 'Ende)
-		(quit))
-	       (t (format t "Dafür hast du nicht die notwendige Berechtigung.~%")
-		  (setf *x* (read)))))
-	((eq *stand* *m*)
-	 (cond ((eq *x* 'Norden)
-		(format t "Da ist 'ne Wand. Geh woanders lang.~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Sueden)
-		(format t "Da ist 'ne Wand. Geh woanders lang.~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Westen)
-		(format t "Da ist 'ne Wand. Geh woanders lang.~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Osten)
-		(setf *stand* *k*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'I)
-		(format t "~a~%" *invent*)
-		(setf *x* (read)))
-	       ((eq *x* 'Ende)
-		(quit))
-	       (t (format t "Dafür hast du nicht die notwendige Berechtigung.~%")
-		  (setf *x* (read)))))
-	((eq *stand* *n*)
-	 (cond ((eq *x* 'Norden)
-		(format t "Da ist 'ne Wand. Geh woanders lang.~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Sueden)
-		(format t "Da ist 'ne Wand. Geh woanders lang.~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Westen)
-		(setf *stand* *o*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'Osten)
-		(format t "Da ist 'ne Wand. Geh woanders lang.~%")
-		(setf *x* (read)))
-	       ((eq *x* 'I)
-		(format t "~a~%" *invent*)
-		(setf *x* (read)))
-	       ((eq *x* 'Ende)
-		(quit))
-	       (t (format t "Dafür hast du nicht die notwendige Berechtigung.~%")
-		  (setf *x* (read)))))
-	((eq *stand* *o*)
-	 (cond ((eq *x* 'Norden)
-		(setf *stand* *k*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'Sueden)
-		(format t "Da ist 'ne Wand. Geh woanders lang.~%")
-		(setf *x* (read)))
-	       ((eq *x* 'Westen)
-		(setf *stand* *p*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'Osten)
-		(setf *stand* *n*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'I)
-		(format t "~a~%" *invent*)
-		(setf *x* (read)))
-	       ((eq *x* 'Ende)
-		(quit))
-	       (t (format t "Dafür hast du nicht die notwendige Berechtigung.~%")
-		  (setf *x* (read)))))
-	((eq *stand* *p*)
-	 (cond ((eq *x* 'Osten)
-		(setf *stand* *o*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'I)
-		(format t "~a~%" *invent*)
-		(setf *x* (read)))
-	       ((eq *x* 'Ende)
-		(quit))
-	       (t (format t "Dafür hast du nicht die notwendige Berechtigung.~%")
-		  (setf *x* (read)))))
-	((eq *stand* *q*)
-	 (cond ((eq *x* 'Runter)
-		(setf *stand* *f*)
-		(ort *stand*)
-		(setf *x* (read)))
-	       ((eq *x* 'I)
-		(format t "~a~%" *invent*)
-		(setf *x* (read)))
-	       ((eq *x* 'Ende)
-		(quit))
-	       (t (format t "Dafür hast du nicht die notwendige Berechtigung.~%")
-		  (setf *x* (read)))))))
+(loop
+  (cond
+    ((eq *x* 'westen)
+     (setf *stand* (+ *stand* 133))
+     (ort *stand*))
+    ((eq *x* 'osten)
+     (setf *stand* (- *stand* 133))
+     (ort *stand*))
+    ((eq *x* 'norden)
+     (setf *stand* (+ *stand* 1001))
+     (ort *stand*))
+    ((eq *x* 'sueden)
+     (setf *stand* (- *stand* 1001))
+     (ort *stand*))
+    ((eq *x* 'hoch)
+     (setf *stand* (+ *stand* 2))
+     (ort *stand*))
+    ((eq *x* 'runter)
+     (setf *stand* (- *stand* 2))
+     (ort *stand*))
+    ((eq *x* 'schau)
+     (ort *stand*))
+    ((eq *x* 'i)
+     (format t "~a~%Was willst du tun?~%" *invent*))
+    ((eq *x* 'schluss)
+     (quit)))
+  (setf *x* (read)))
