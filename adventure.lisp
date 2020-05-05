@@ -38,23 +38,24 @@
 (defvar *6* (list "Weinglas"))
 (defvar *7* (list "Gitarre"))
 (defvar *8* (list "X-Box Controller"))
+(defvar *9* (list "Taschenbibel"))
 
 ;;; Making a list per room containing this rooms objects
 
-(defvar *aobjects* (list *0*))
+(defvar *aobjects* (list))
 (defvar *bobjects* (list *1* *2* *3* *4*))
 (defvar *cobjects* (list *5* *6*))
 (defvar *dobjects* (list *7* *8*))
-(defvar *fobjects* (list *0*))
-(defvar *gobjects* (list *0*))
-(defvar *iobjects* (list *0*))
-(defvar *kobjects* (list *0*))
-(defvar *lobjects* (list *0*))
-(defvar *mobjects* (list *0*))
-(defvar *nobjects* (list *0*))
-(defvar *oobjects* (list *0*))
-(defvar *pobjects* (list *0*))
-(defvar *qobjects* (list *0*))
+(defvar *fobjects* (list))
+(defvar *gobjects* (list))
+(defvar *iobjects* (list))
+(defvar *kobjects* (list))
+(defvar *lobjects* (list))
+(defvar *mobjects* (list))
+(defvar *nobjects* (list))
+(defvar *oobjects* (list))
+(defvar *pobjects* (list))
+(defvar *qobjects* (list))
 
 ;;; Describing the rooms of the game and the objects in them
 
@@ -229,7 +230,7 @@
 
 ;;; Inventory
 
-(defvar *invent* (list "Taschenbibel"))
+(defvar *invent* (list *9*))
 
 ;;; Your position
 
@@ -277,10 +278,7 @@
 	((eq *stand* *q*)
 	 (setf *standlist* qlist))))
 
-#||
-This function compares your position to the numbered rooms,  prints the corresponding verbose description of the room, 
-and appends a list of the objects in the room and a "Was willst du tun?", i.e. "What do you want to do?"
-||#
+;;; This function first updates your standlist, then prints out of it the verbose description of the room and then the list of items in it.
 
 (defun ort (*x*)
   (update *stand*)
@@ -295,13 +293,26 @@ and appends a list of the objects in the room and a "Was willst du tun?", i.e. "
 (defun nimm (*y*)
   (setf *y* (read))
   (cond ((eq *y* '1)
-	 (setf *invent* (append *invent* (car (caddr *standlist*)))))
+	 (setf *invent* (append *invent* (list (car (caddr *standlist*))))))
 	((eq *y* '2)
-	 (setf *invent* (append *invent* (cadr (caddr *standlist*)))))
+	 (setf *invent* (append *invent* (list (cadr (caddr *standlist*))))))
 	((eq *y* '3)
-	 (setf *invent* (append *invent* (caddr (caddr *standlist*)))))
+	 (setf *invent* (append *invent* (list (caddr (caddr *standlist*))))))
 	((eq *y* '4)
-	 (setf *invent* (append *invent* (cadddr (caddr *standlist*)))))))
+	 (setf *invent* (append *invent* (list (cadddr (caddr *standlist*))))))))
+
+;;; A function to put things down in the room you're in.
+
+(defun lege (*y*)
+  (setf *y* (read))
+  (cond ((eq *y* '1)
+	 (setf (caddr *standlist*) (append (list (caddr *standlist*) (car *invent*)))))
+	((eq *y* '2)
+	 (setf (caddr *standlist*) (append (list (caddr *standlist*) (cadr *invent*)))))
+	((eq *y* '3)
+	 (setf (caddr *standlist*) (append (list (caddr *standlist*) (caddr *invent*)))))
+	((eq *y* '4)
+	 (setf (caddr *standlist*) (append (list (caddr *standlist*) (cadddr *invent*)))))))
 
 ;;; The game begins
 
@@ -339,6 +350,8 @@ and appends a list of the objects in the room and a "Was willst du tun?", i.e. "
      (format t "~a~%Was willst du tun?~%" *invent*))
     ((eq *x* 'nimm)
      (nimm *y*))
+    ((eq *x* 'lege)
+     (lege *y*))
     ((eq *x* 'schluss)
      (quit))
     ((eq *x* 'hilfe)
