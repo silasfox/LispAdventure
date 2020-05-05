@@ -29,15 +29,15 @@
 
 ;;; Defining objects as variables
 
-(defvar *0* "Nichts")
-(defvar *1* "Pfanne")
-(defvar *2* "Küchenmesser")
-(defvar *3* "Wasserflasche")
-(defvar *4* "Verschimmeltes Butterbrot")
-(defvar *5* "Schere")
-(defvar *6* "Weinglas")
-(defvar *7* "Gitarre")
-(defvar *8* "X-Box Controller")
+(defvar *0* (list "Nichts"))
+(defvar *1* (list "Pfanne"))
+(defvar *2* (list "Küchenmesser"))
+(defvar *3* (list "Wasserflasche"))
+(defvar *4* (list "Verschimmeltes Butterbrot"))
+(defvar *5* (list "Schere"))
+(defvar *6* (list "Weinglas"))
+(defvar *7* (list "Gitarre"))
+(defvar *8* (list "X-Box Controller"))
 
 ;;; Making a list per room containing this rooms objects
 
@@ -190,7 +190,7 @@
 | Runter ist raus.						 |
 ------------------------------------------------------------------")
 
-;;;Defining rooms as numbers
+;;; Defining rooms as numbers
 
 (defvar *a* 0)
 (defvar *b* -133)
@@ -210,6 +210,23 @@
 (defvar *p* -870)
 (defvar *q* 4)
 
+;;; Lists for each room
+
+(defvar alist (list *a* *averb* *aobjects*))
+(defvar blist (list *b* *bverb* *bobjects*))
+(defvar clist (list *c* *cverb* *cobjects*))
+(defvar dlist (list *d* *dverb* *dobjects*))
+(defvar flist (list *f* *fverb* *fobjects*))
+(defvar glist (list *g* *gverb* *gobjects*))
+(defvar ilist (list *i* *iverb* *iobjects*))
+(defvar klist (list *k* *kverb* *kobjects*))
+(defvar llist (list *l* *lverb* *lobjects*))
+(defvar mlist (list *m* *mverb* *mobjects*))
+(defvar nlist (list *n* *nverb* *nobjects*))
+(defvar olist (list *o* *overb* *oobjects*))
+(defvar plist (list *p* *pverb* *pobjects*))
+(defvar qlist (list *q* *qverb* *qobjects*))
+
 ;;; Inventory
 
 (defvar *invent* (list "Taschenbibel"))
@@ -218,72 +235,73 @@
 
 (defvar *stand* *a*)
 
+;;; Your position with a list of everything in it
+
+(defvar *standlist* alist)
+
+;;; A function to keep standlist up to date with stand
+
+(defun update (*stand*)
+  (cond ((eq *stand* *a*)
+	 (setf *standlist* alist))
+	((eq *stand* *b*)
+	 (setf *standlist* blist))
+	((eq *stand* *c*)
+	 (setf *standlist* clist))
+	((eq *stand* *d*)
+	 (setf *standlist* dlist))
+	((eq *stand* *e*)
+	 (setf *standlist* elist))
+	((eq *stand* *f*)
+	 (setf *standlist* flist))
+	((eq *stand* *g*)
+	 (setf *standlist* glist))
+	((eq *stand* *h*)
+	 (setf *standlist* hlist))
+	((eq *stand* *i*)
+	 (setf *standlist* ilist))
+	((eq *stand* *j*)
+	 (setf *standlist* jlist))
+	((eq *stand* *k*)
+	 (setf *standlist* klist))
+	((eq *stand* *l*)
+	 (setf *standlist* llist))
+	((eq *stand* *m*)
+	 (setf *standlist* mlist))
+	((eq *stand* *n*)
+	 (setf *standlist* nlist))
+	((eq *stand* *o*)
+	 (setf *standlist* olist))
+	((eq *stand* *p*)
+	 (setf *standlist* plist))
+	((eq *stand* *q*)
+	 (setf *standlist* qlist))))
+
 #||
 This function compares your position to the numbered rooms,  prints the corresponding verbose description of the room, 
 and appends a list of the objects in the room and a "Was willst du tun?", i.e. "What do you want to do?"
 ||#
 
-(defun ort (*stand*)
-  (cond 
-    ((eq *stand* *a*)
-     (format t "~a~%" *averb*)
-     (format t "Du siehst: ~a~%" *aobjects*))
-    ((eq *stand* *b*)
-     (format t "~a~%" *bverb*)
-     (format t "Du siehst: ~a~%" *bobjects*))
-    ((eq *stand* *c*)
-     (format t "~a~%" *cverb*)
-     (format t "Du siehst: ~a~%" *cobjects*))
-    ((eq *stand* *d*)
-     (format t "~a~%" *dverb*)
-     (format t "Du siehst: ~a~%" *dobjects*))
-    ((eq *stand* *e*)
-     (format t 
-"------------------------------------------------------------------
-| Das Bad. Musst du mal? Nein? Dann raus hier.			 |
-------------------------------------------------------------------~%"))
-    ((eq *stand* *f*)
-     (format t "~a~%" *fverb*)
-     (format t "Du siehst: ~a~%" *fobjects*))
-    ((eq *stand* *g*)
-     (format t "~a~%" *gverb*)
-     (format t "Du siehst: ~a~%" *gobjects*))
-    ((eq *stand* *h*)
-     (format t 
-"------------------------------------------------------------------
-| Das Schlafzimmer deiner Eltern. Hier hast du keinen Zutritt.	 |
-------------------------------------------------------------------~%"))
-    ((eq *stand* *i*)
-     (format t "~a~%" *iverb*)
-     (format t "Du siehst: ~a~%" *iobjects*))
-    ((eq *stand* *j*)
-     (format t 
-"------------------------------------------------------------------
-| Du bist ganz gut im Bäderfinden. Aber auch hier hast du nichts |
-| zu suchen.							 |
-------------------------------------------------------------------~%"))
-    ((eq *stand* *k*)
-     (format t "~a~%" *kverb*)
-     (format t "Du siehst: ~a~%" *kobjects*))
-    ((eq *stand* *l*)
-     (format t "~a~%" *lverb*)
-     (format t "Du siehst: ~a~%" *lobjects*))
-    ((eq *stand* *m*)
-     (format t "~a~%" *mverb*)
-     (format t "Du siehst: ~a~%" *mobjects*))
-    ((eq *stand* *n*)
-     (format t "~a~%" *nverb*)
-     (format t "Du siehst: ~a~%" *nobjects*))
-    ((eq *stand* *o*)
-     (format t "~a~%" *overb*)
-     (format t "Du siehst: ~a~%" *oobjects*))
-    ((eq *stand* *p*)
-     (format t "~a~%" *pverb*)
-     (format t "Du siehst: ~a~%" *pobjects*))
-    ((eq *stand* *q*)
-     (format t "~a~%" *qverb*)
-     (format t "Du siehst: ~a~%" *qobjects*)))
-  (format t "Was willst du tun?~%" *stand*))
+(defun ort (*x*)
+  (update *stand*)
+  (format t "~a~%" (cadr *standlist*))
+  (format t "Du siehst: ~a~%" (caddr *standlist*))
+  (format t "Was willst du tun?~%"))
+
+;;; A function to take something and put it into your inventory
+
+(defvar *y* 1)
+
+(defun nimm (*y*)
+  (setf *y* (read))
+  (cond ((eq *y* '1)
+	 (setf *invent* (append *invent* (car (caddr *standlist*)))))
+	((eq *y* '2)
+	 (setf *invent* (append *invent* (cadr (caddr *standlist*)))))
+	((eq *y* '3)
+	 (setf *invent* (append *invent* (caddr (caddr *standlist*)))))
+	((eq *y* '4)
+	 (setf *invent* (append *invent* (cadddr (caddr *standlist*)))))))
 
 ;;; The game begins
 
@@ -319,6 +337,8 @@ and appends a list of the objects in the room and a "Was willst du tun?", i.e. "
      (ort *stand*))
     ((eq *x* 'i)
      (format t "~a~%Was willst du tun?~%" *invent*))
+    ((eq *x* 'nimm)
+     (nimm *y*))
     ((eq *x* 'schluss)
      (quit))
     ((eq *x* 'hilfe)
