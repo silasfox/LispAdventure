@@ -17,7 +17,7 @@
 + Hoch								+
 + Runter							+
 + I (öffnet dein Inventar)					+
-+ Nimm (fügt etwas deinem Inventar hinzu)			+
++ Nimm + Zahl (fügt etwas deinem Inventar hinzu)		+
 + Schau (zeigt den Raum noch einmal)				+
 + Schluss (verlässt das Spiel)					+
 + Hilfe (druckt diesen Text noch einmal ab)			+
@@ -306,6 +306,19 @@
 	 (setf *invent* (append *invent* (list (cadddr (caddr *standlist*)))))
 	 (setf (caddr *standlist*) (remove (cadddr (caddr *standlist*)) (caddr *standlist*))))))
 
+;;; Eat stuff
+
+(defun iss (*y*)
+  (setf *y* (read))
+  (cond ((eq *y* '1)
+	 (setf *invent* (remove (car *invent*) *invent*)))
+	((eq *y* '2)
+	 (setf *invent* (remove (cadr *invent*) *invent*)))
+	((eq *y* '3)
+	 (setf *invent* (remove (caddr *invent*) *invent*)))
+	((eq *y* '4)
+	 (setf *invent* (remove (cadddr *invent*) *invent*)))))
+
 ;;; The game begins
 
 (format t "~a~%~%~%" *intro*)
@@ -315,6 +328,8 @@
 ;;; A variable that takes the player's input
 
 (setq *x* (read))
+
+;;; The game enginge
 
 (loop
   (cond
@@ -360,6 +375,8 @@
      (format t "~a~%Was willst du tun?~%" *invent*))
     ((eq *x* 'nimm)
      (nimm *y*))
+    ((eq *x* 'iss)
+     (iss *y*))
     ((eq *x* 'schluss)
      (quit))
     ((eq *x* 'hilfe)
