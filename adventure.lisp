@@ -317,7 +317,9 @@
 	((eq *y* '3)
 	 (setf *invent* (remove (caddr *invent*) *invent*)))
 	((eq *y* '4)
-	 (setf *invent* (remove (cadddr *invent*) *invent*)))))
+	 (setf *invent* (remove (cadddr *invent*) *invent*))))
+  (format t "Das ist nicht essbar. Du stirbst.")
+  (quit))
 
 ;;; The game begins
 
