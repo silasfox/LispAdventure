@@ -41,7 +41,7 @@
 (defvar *8* (list "X-Box Controller"))
 (defvar *9* (list "Taschenbibel"))
 
-;;; Defining the directions as variables just because 
+;;; Defining the directions as variables so we can call them when defining walls
 
 (defvar *westen* 133)
 (defvar *osten* -133)
@@ -360,8 +360,12 @@
 (loop
   (cond
     ((eq *x* 'westen)
-     (cond ((member *westen* (cadddr *standlist*))
+     (cond 
+       ;; checks wether the 'walls' list for the room defines a wall there
+       ((member *westen* (cadddr *standlist*))
+	;; if there is a wall, it just prints that there is one
 	  (format t "Da ist eine Wand.~%"))
+       ;; if there is none, it proceeds with changing your position to the new room
        (t (setf *stand* (+ *stand* 133))
        (ort *stand*))))
     ((eq *x* 'w)
