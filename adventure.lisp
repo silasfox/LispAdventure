@@ -58,7 +58,7 @@
 (defvar *pobjects* (list))
 (defvar *qobjects* (list))
 
-;;; Describing the rooms of the game and the objects in them
+;;; Describing the rooms of the game and their walls
 
 (defvar *averb* 
 "------------------------------------------------------------------
@@ -68,6 +68,7 @@
 | kannst die Treppe hoch oder runter gehen, in die anderen       |
 | Etagen. Im Norden ist die Haustür.                             |
 ------------------------------------------------------------------")
+(defvar *awalls* (list 'sueden))
 
 (defvar *bverb* 
 "------------------------------------------------------------------
@@ -80,6 +81,7 @@
 |----------------------------------------------------------------|
 | Nach Süden geht es ins Esszimmer, nach Westen in den Flur.     |
 ------------------------------------------------------------------")
+(defvar *bwalls* (list 'norden 'osten 'hoch 'runter))
 
 (defvar *cverb* 
 "------------------------------------------------------------------
@@ -90,6 +92,7 @@
 |----------------------------------------------------------------|
 | Nach Westen geht es ins Wohnzimmer, nach Norden in die Küche.  |
 ------------------------------------------------------------------")
+(defvar *cwalls* (list 'sueden 'osten 'hoch 'runter))
 
 (defvar *dverb* 
 "------------------------------------------------------------------
@@ -101,6 +104,7 @@
 |----------------------------------------------------------------|
 | Nach Osten geht es ins Esszimmer.				 |
 ------------------------------------------------------------------")
+(defvar *dwalls* (list 'sueden 'westen 'norden 'hoch 'runter))
 
 (defvar *fverb* 
 "------------------------------------------------------------------
@@ -112,6 +116,7 @@
 | Nach oben geht es zum kleinen Bruder, nach unten kommst du in  |
 | den Flur.							 |
 ------------------------------------------------------------------")
+(defvar *fwalls* (list 'norden))
 
 (defvar *gverb* 
 "------------------------------------------------------------------
@@ -121,6 +126,7 @@
 | im Süden ist das Schlafzimmer der Eltern. Im Westen geht's	 |
 | wieder in den Flur.						 |
 ------------------------------------------------------------------")
+(defvar *gwalls* (list 'norden 'osten 'hoch 'runter))
 
 (defvar *iverb* 
 "------------------------------------------------------------------
@@ -128,6 +134,7 @@
 |----------------------------------------------------------------|
 | Richtung Norden kommst du hier wieder raus.			 |
 ------------------------------------------------------------------")
+(defvar *iwalls* (list 'osten 'westen 'sueden 'hoch 'runter))
 
 (defvar *kverb*
 "------------------------------------------------------------------
@@ -136,8 +143,10 @@
 | ten Kerzen.							 |
 |----------------------------------------------------------------|
 | Im Osten ist der erste Kellerraum, im Westen die Waschküche. 	 |
-| Richtung Süden geht es weiter den Flur entlang.		 |
+| Richtung Süden geht es weiter den Flur entlang. Nach oben geht |
+| es wieder in den Flur.					 |
 ------------------------------------------------------------------")
+(defvar *kwalls* (list 'norden 'runter))
 
 (defvar *lverb* 
 "------------------------------------------------------------------
@@ -147,6 +156,7 @@
 |----------------------------------------------------------------|
 | Nach Westen kommst du wieder raus.				 |
 ------------------------------------------------------------------")
+(defvar *lwalls* (list 'norden 'osten 'sueden 'hoch 'runter))
 
 (defvar *mverb* 
 "------------------------------------------------------------------
@@ -156,6 +166,7 @@
 |----------------------------------------------------------------|
 | Nach Osten geht's wieder in den Flur.				 |
 ------------------------------------------------------------------")
+(defvar *mwalls* (list 'norden 'westen 'sueden 'hoch 'runter))
 
 (defvar *nverb* 
 "------------------------------------------------------------------
@@ -165,6 +176,7 @@
 |----------------------------------------------------------------|
 | Nach Westen geht's wieder raus.				 |
 ------------------------------------------------------------------")
+(defvar *nwalls* (list 'norden 'osten 'sueden 'hoch 'runter))
 
 (defvar *overb* 
 "------------------------------------------------------------------
@@ -174,6 +186,7 @@
 | Nach Norden geht's in den Kellerflur, nach Osten in den zwei-	 |
 | ten Kellerraum. Im Westen ist eine Tür auf den Hof.		 |
 ------------------------------------------------------------------")
+(defvar *owalls* (list 'sueden 'hoch 'runter))
 
 (defvar *pverb*
 "------------------------------------------------------------------
@@ -183,6 +196,7 @@
 |----------------------------------------------------------------|
 | Im Osten erwartet dich die Sicherheit deiner vier Wände.	 |
 ------------------------------------------------------------------")
+(defvar *pwalls* (list 'hoch 'runter))
 
 (defvar *qverb* 
 "------------------------------------------------------------------
@@ -191,6 +205,7 @@
 |----------------------------------------------------------------|
 | Runter ist raus.						 |
 ------------------------------------------------------------------")
+(defvar *qwalls* (list 'norden 'sueden 'osten 'westen 'hoch))
 
 ;;; Defining rooms as numbers
 
