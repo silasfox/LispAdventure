@@ -9,7 +9,7 @@ As of yet, you can move around the rooms, look in your inventory, look at what's
 
 ## Prerequisites
 
-You need sbcl installed. 
+You need to have sbcl installed. 
 On arch-based linux distros just run
 
 	sudo pacman -S sbcl
