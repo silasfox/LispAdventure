@@ -1,14 +1,14 @@
 ;;; Defining objects as variables
 
-(defvar *1* (list "Pfanne"))
-(defvar *2* (list "Küchenmesser"))
-(defvar *3* (list "Wasserflasche"))
-(defvar *4* (list "Verschimmeltes Butterbrot"))
-(defvar *5* (list "Schere"))
-(defvar *6* (list "Weinglas"))
-(defvar *7* (list "Gitarre"))
-(defvar *8* (list "X-Box Controller"))
-(defvar *9* (list "Taschenbibel"))
+(defvar *1* "Pfanne")
+(defvar *2* "Küchenmesser")
+(defvar *3* "Wasserflasche")
+(defvar *4* "Verschimmeltes Butterbrot")
+(defvar *5* "Schere")
+(defvar *6* "Weinglas")
+(defvar *7* "Gitarre")
+(defvar *8* "X-Box Controller")
+(defvar *9* "Taschenbibel")
 
 ;;; Making a list per room containing this rooms objects
 

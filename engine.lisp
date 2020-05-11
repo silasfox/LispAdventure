@@ -1,3 +1,7 @@
+;;; a function for viewing your inventory
+
+(defun invent () (format t "~A~%" *invent*))
+
 ;;; The game begins
 
 (defun start ()
