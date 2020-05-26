@@ -17,6 +17,7 @@
 + I (öffnet dein Inventar)					+
 + Nimm + Zahl (fügt etwas deinem Inventar hinzu)		+
 + Schau (zeigt den Raum noch einmal)				+
++ Homer + Ilias/Odyssee (Druckt das Proöm des jeweiligen Werks)	+
 + Schluss (verlässt das Spiel)					+
 + Hilfe (druckt diesen Text noch einmal ab)			+
 +---------------------------------------------------------------+

@@ -93,6 +93,8 @@
      (iss (read)))
     ((eq x 'schluss)
      (quit))
+    ((eq x 'homer)
+     (prooemium (read)))
     ((eq x 'hilfe)
      (format t "~%~%~a~%~%~%Was willst du tun?~%" *intro*)))
   (setf x (read))))
