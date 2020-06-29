@@ -9,4 +9,5 @@
 	 (setf *invent* (remove (caddr *invent*) *invent*)))
 	((eq y '4)
 	 (setf *invent* (remove (cadddr *invent*) *invent*))))
-  (format t "Das ist nicht essbar. Du stirbst.~%")) 
+  (format t "Das ist nicht essbar. Du stirbst.~%")
+  (quit)) 

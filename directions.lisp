@@ -1,3 +1,5 @@
+;;; defining the six directions as numbers
+
 (defvar *westen* 133)
 (defvar *osten* -133)
 (defvar *norden* 1001)

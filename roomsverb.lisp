@@ -171,7 +171,7 @@
 (defvar *p* -870)
 (defvar *q* 4)
 
-;;; Lists for each room
+;;; Lists for each room, containing the room's number, verbose description, objects and walls in this order
 
 (defvar alist (list *a* *averb* *aobjects* *awalls*))
 (defvar blist (list *b* *bverb* *bobjects* *bwalls*))
