@@ -28,4 +28,8 @@ then
 
 	(start)
 
+Or on linux systems just run the executable:
+
+	./adventure
+	
 Enjoy!
