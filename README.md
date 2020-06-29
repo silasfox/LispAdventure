@@ -31,5 +31,9 @@ then
 Or on linux systems just run the executable:
 
 	./adventure
+
+Then type 
+
+	(start)
 	
 Enjoy!
