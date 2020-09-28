@@ -4,6 +4,8 @@
 
 (defvar x 0)
 
+(defvar y 1)
+
 ;;; The game begins
 
 (defun start ()
@@ -16,7 +18,7 @@
 
 ;;; The game enginge
 
-(loop
+(loop 
   (cond
     ((eq x 'westen)
      (cond 
@@ -92,7 +94,7 @@
     ((eq x 'iss)
      (iss (read)))
     ((eq x 'schluss)
-     (quit))
+     (setf y -1))
     ((eq x 'homer)
      (prooemium (read)))
     ((eq x 'hilfe)
